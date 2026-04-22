@@ -190,6 +190,9 @@ grey_watcher_up{type="http"} == 0
 grey_http_response_code
 ```
 
+## Grafana Dashboard
+
+![Grey Grafana Dashboard](docs/images/grafana-dashboard.png)
 ---
 
 ## Graceful Shutdown
