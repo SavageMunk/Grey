@@ -1,0 +1,36 @@
+watchers:
+  - name: nginx errors
+    type: log
+    path: /var/log/nginx/error.log
+    pattern: "ERROR|CRITICAL|FATAL"
+    cooldown: 10m
+    alert: discord
+
+  - name: app health check
+    type: http
+    url: http://localhost:8080/health
+    expect_status: 200
+    interval: 30s
+    cooldown: 5m
+    alert: slack
+
+  - name: prometheus health
+    type: http
+    # url must be an HTTP endpoint that returns a status code — not a raw TCP port.
+    url: http://localhost:9090/-/healthy
+    expect_status: 200
+    interval: 60s
+    cooldown: 10m
+    alert: myserver
+
+alerts:
+  discord:
+    webhook: https://discord.com/api/webhooks/YOUR_ID/YOUR_TOKEN
+  slack:
+    webhook: https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK
+  myserver:
+    webhook: https://my-custom-endpoint.com/alert
+
+metrics:
+  enabled: true
+  port: 9101
